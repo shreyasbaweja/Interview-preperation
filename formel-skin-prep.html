@@ -3,21 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interview Prep — FORMEL SKIN</title>
+<title>Interview Prep — FORMEL SKIN / VOY</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* ─── TOKENS ─────────────────────────────────────────────── */
   :root {
-    --cream: #F8F4EF;
-    --dark: #1A1A1A;
-    --accent: #C4855A;
+    --cream:        #F8F4EF;
+    --dark:         #1A1A1A;
+    --accent:       #C4855A;
     --accent-light: #E8C4A8;
-    --muted: #7A7169;
-    --card-bg: #FFFFFF;
-    --border: #E8E2DA;
-    --success: #4A7C6F;
+    --muted:        #7A7169;
+    --card-bg:      #FFFFFF;
+    --border:       #E8E2DA;
+    --success:      #4A7C6F;
+    /* VC tab uses a cooler blue tint to differentiate */
+    --vc-accent:    #2E75B6;
+    --vc-light:     #D5E8F0;
+    --vc-dark:      #1B3A5C;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; }
 
   body {
     background: var(--cream);
@@ -27,643 +32,1040 @@
     line-height: 1.7;
   }
 
-  header {
+  /* ─── GLOBAL HEADER ─────────────────────────────────────── */
+  .site-header {
     background: var(--dark);
     color: white;
-    padding: 60px 40px 50px;
+    padding: 52px 40px 44px;
     position: relative;
     overflow: hidden;
   }
-
-  header::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    border: 1px solid rgba(196,133,90,0.3);
+  .site-header::before {
+    content:'';
+    position:absolute; top:-60px; right:-60px;
+    width:300px; height:300px; border-radius:50%;
+    border:1px solid rgba(196,133,90,.3);
   }
-
-  header::after {
-    content: '';
-    position: absolute;
-    bottom: -80px; right: 80px;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    border: 1px solid rgba(196,133,90,0.15);
+  .site-header::after {
+    content:'';
+    position:absolute; bottom:-80px; right:80px;
+    width:200px; height:200px; border-radius:50%;
+    border:1px solid rgba(196,133,90,.15);
   }
-
   .header-inner {
-    max-width: 860px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+    max-width:900px; margin:0 auto; position:relative; z-index:1;
   }
-
-  .tag {
-    display: inline-block;
-    background: var(--accent);
-    color: white;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 2px;
-    margin-bottom: 20px;
+  .company-tag {
+    display:inline-block;
+    background:var(--accent); color:white;
+    font-size:10px; font-weight:600; letter-spacing:2px;
+    text-transform:uppercase; padding:5px 14px; border-radius:2px;
+    margin-bottom:16px;
   }
-
-  header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 12px;
+  .site-header h1 {
+    font-family:'Playfair Display', serif;
+    font-size: clamp(2rem,5vw,3rem);
+    font-weight:900; line-height:1.1; margin-bottom:8px;
   }
-
-  header h1 span { color: var(--accent); }
-
-  .header-meta {
-    color: rgba(255,255,255,0.5);
-    font-size: 13px;
-    letter-spacing: 0.5px;
-    margin-top: 16px;
+  .site-header h1 span { color:var(--accent); }
+  .header-sub {
+    color:rgba(255,255,255,.5); font-size:13px; letter-spacing:.4px; margin-top:12px;
   }
+  .header-sub strong { color:var(--accent-light); font-weight:500; }
 
-  .header-meta strong { color: var(--accent-light); font-weight: 500; }
-
-  .intro-note {
-    max-width: 860px;
-    margin: 40px auto;
-    padding: 0 40px;
+  /* ─── TAB NAV ───────────────────────────────────────────── */
+  .tab-nav {
+    max-width:900px; margin:0 auto;
+    display:flex; gap:0;
+    padding:0 40px;
+    border-bottom:2px solid var(--border);
+    background:var(--cream);
+    position:sticky; top:0; z-index:100;
   }
+  .tab-btn {
+    padding:18px 32px;
+    font-family:'DM Sans',sans-serif;
+    font-size:13px; font-weight:600; letter-spacing:.8px;
+    text-transform:uppercase; cursor:pointer;
+    background:none; border:none; color:var(--muted);
+    border-bottom:3px solid transparent;
+    margin-bottom:-2px;
+    transition:all .25s;
+  }
+  .tab-btn:hover { color:var(--dark); }
+  .tab-btn.active-hr  { color:var(--accent);    border-bottom-color:var(--accent); }
+  .tab-btn.active-vc  { color:var(--vc-accent); border-bottom-color:var(--vc-accent); }
 
+  /* ─── TAB PANELS ────────────────────────────────────────── */
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
+
+  /* ─── INTRO BANNER ──────────────────────────────────────── */
+  .intro-wrap {
+    max-width:900px; margin:36px auto 0; padding:0 40px;
+  }
   .intro-card {
-    background: var(--accent);
-    color: white;
-    padding: 24px 30px;
-    border-radius: 8px;
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
+    padding:22px 28px; border-radius:8px;
+    display:flex; gap:16px; align-items:flex-start;
+    color:white;
   }
+  .intro-card.hr-card { background:var(--accent); }
+  .intro-card.vc-card { background:var(--vc-dark); }
+  .intro-card .icon { font-size:20px; margin-top:2px; flex-shrink:0; }
+  .intro-card p { font-size:13.5px; line-height:1.75; opacity:.95; }
 
-  .intro-card .icon { font-size: 22px; margin-top: 2px; }
-  .intro-card p { font-size: 14px; line-height: 1.7; opacity: 0.95; }
+  /* ─── CATEGORY DIVIDER ──────────────────────────────────── */
+  .category-label {
+    max-width:900px; margin:40px auto 16px; padding:0 40px;
+  }
+  .category-label span {
+    display:inline-block;
+    font-size:10px; font-weight:700; letter-spacing:2px;
+    text-transform:uppercase; padding:5px 14px; border-radius:2px; color:white;
+  }
+  .cat-hr { background:var(--dark); }
+  .cat-vc { background:var(--vc-dark); }
 
+  /* ─── MAIN CONTENT AREA ─────────────────────────────────── */
   main {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 40px 80px;
+    max-width:900px; margin:0 auto; padding:8px 40px 80px;
   }
 
+  /* ─── Q CARDS ───────────────────────────────────────────── */
   .q-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    margin-bottom: 28px;
-    overflow: hidden;
-    animation: fadeUp 0.5s ease both;
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:12px;
+    margin-bottom:20px;
+    overflow:hidden;
+    animation:fadeUp .45s ease both;
   }
-
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity:0; transform:translateY(14px); }
+    to   { opacity:1; transform:translateY(0); }
   }
-
   .q-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 22px 28px;
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.2s;
+    display:flex; align-items:center; gap:16px;
+    padding:20px 26px; cursor:pointer; user-select:none;
+    transition:background .2s;
   }
-
-  .q-header:hover { background: #FAFAF8; }
+  .q-header:hover { background:#FAFAF8; }
 
   .q-number {
-    width: 38px; height: 38px;
-    background: var(--dark);
-    color: white;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
-    font-weight: 700;
-    flex-shrink: 0;
-    transition: background 0.3s;
+    width:36px; height:36px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif;
+    font-size:14px; font-weight:700;
+    flex-shrink:0; transition:background .3s;
+    color:white;
   }
+  .hr-num { background:var(--dark); }
+  .vc-num { background:var(--vc-dark); }
 
   .q-title {
-    flex: 1;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--dark);
-    letter-spacing: 0.2px;
+    flex:1; font-size:14.5px; font-weight:600;
+    color:var(--dark); letter-spacing:.2px;
   }
-
   .q-toggle {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--muted);
-    font-size: 18px;
-    transition: all 0.3s;
-    flex-shrink: 0;
+    width:26px; height:26px; border-radius:50%;
+    border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; color:var(--muted);
+    transition:all .3s; flex-shrink:0;
   }
-
-  .q-card.open .q-toggle {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: white;
-    transform: rotate(45deg);
-  }
-
-  .q-card.open .q-number { background: var(--accent); }
+  .q-card.open .q-toggle { transform:rotate(45deg); color:white; }
+  .q-card.open.hr-card .q-toggle { background:var(--accent); border-color:var(--accent); }
+  .q-card.open.vc-card .q-toggle { background:var(--vc-accent); border-color:var(--vc-accent); }
+  .q-card.open .hr-num { background:var(--accent); }
+  .q-card.open .vc-num { background:var(--vc-accent); }
 
   .q-body {
-    display: none;
-    border-top: 1px solid var(--border);
-    padding: 28px 28px 28px 82px;
+    display:none;
+    border-top:1px solid var(--border);
+    padding:26px 26px 26px 78px;
   }
+  .q-card.open .q-body { display:block; }
 
-  .q-card.open .q-body { display: block; }
+  /* ─── ANSWER TEXT ───────────────────────────────────────── */
+  .answer-text { font-size:14.5px; line-height:1.9; color:#2C2C2C; }
+  .answer-text p { margin-bottom:13px; }
+  .answer-text p:last-child { margin-bottom:0; }
+  .answer-text strong { color:var(--dark); font-weight:600; }
 
-  .answer-text {
-    font-size: 14.5px;
-    line-height: 1.85;
-    color: #2C2C2C;
-  }
-
-  .answer-text p { margin-bottom: 14px; }
-  .answer-text p:last-child { margin-bottom: 0; }
-  .answer-text strong { color: var(--dark); font-weight: 600; }
-
+  /* ─── COACHING NOTES ────────────────────────────────────── */
   .coaching {
-    margin-top: 24px;
-    background: #F0F7F4;
-    border-left: 3px solid var(--success);
-    border-radius: 0 6px 6px 0;
-    padding: 18px 20px;
+    margin-top:22px;
+    background:#F0F7F4;
+    border-left:3px solid var(--success);
+    border-radius:0 6px 6px 0;
+    padding:16px 20px;
   }
-
   .coaching-title {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--success);
-    margin-bottom: 10px;
+    font-size:10px; font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--success); margin-bottom:9px;
   }
-
-  .coaching ul { list-style: none; padding: 0; }
-
+  .coaching ul { list-style:none; padding:0; }
   .coaching ul li {
-    font-size: 13px;
-    color: #3A5A52;
-    line-height: 1.7;
-    padding-left: 18px;
-    position: relative;
-    margin-bottom: 6px;
+    font-size:13px; color:#3A5A52; line-height:1.7;
+    padding-left:18px; position:relative; margin-bottom:5px;
   }
-
   .coaching ul li::before {
-    content: 'â†'';
-    position: absolute;
-    left: 0;
-    color: var(--success);
-    font-weight: 600;
+    content:'&#x2192;'; /* HTML entity for arrow - safe in all browsers */
+    position:absolute; left:0; color:var(--success); font-weight:600;
   }
 
+  /* ─── VC CALLOUT BOXES ──────────────────────────────────── */
+  .callout {
+    margin-top:20px; padding:16px 20px; border-radius:0 6px 6px 0;
+    font-size:13.5px; line-height:1.8; font-style:italic;
+  }
+  .callout-blue  { background:var(--vc-light); border-left:3px solid var(--vc-accent); color:#1B3A5C; }
+  .callout-amber { background:#FFF8E6; border-left:3px solid #D4A017; color:#6B4C00; }
+  .callout-green { background:#E8F5EE; border-left:3px solid #4A7C6F; color:#1E4A3B; }
+  .callout-red   { background:#FEF0EB; border-left:3px solid #C4855A; color:#5C2A10; }
+  .callout-label {
+    font-style:normal; font-size:10px; font-weight:700;
+    letter-spacing:1.5px; text-transform:uppercase;
+    margin-bottom:8px; display:block;
+  }
+  .callout-blue  .callout-label { color:var(--vc-accent); }
+  .callout-amber .callout-label { color:#D4A017; }
+  .callout-green .callout-label { color:#4A7C6F; }
+  .callout-red   .callout-label { color:#C4855A; }
+
+  /* ─── VC FRAMEWORK TABLE ────────────────────────────────── */
+  .fw-table {
+    width:100%; border-collapse:collapse; margin-top:16px;
+    font-size:13px; border-radius:8px; overflow:hidden;
+    border:1px solid #dde8f0;
+  }
+  .fw-table th {
+    background:var(--vc-dark); color:white;
+    padding:10px 14px; text-align:left;
+    font-weight:600; font-size:12px; letter-spacing:.5px;
+  }
+  .fw-table td {
+    padding:10px 14px; vertical-align:top;
+    border-bottom:1px solid #eef2f7; color:#2C2C2C;
+  }
+  .fw-table tr:last-child td { border-bottom:none; }
+  .fw-table tr:nth-child(even) td { background:#f7fafd; }
+
+  /* ─── LABEL ROW (two-column) ────────────────────────────── */
+  .label-row {
+    display:flex; gap:0; margin-top:12px;
+    border-radius:6px; overflow:hidden;
+    border:1px solid #dde8f0;
+  }
+  .label-row .lr-key {
+    background:var(--vc-accent); color:white;
+    padding:12px 16px; font-size:12px; font-weight:700;
+    letter-spacing:.5px; text-transform:uppercase;
+    min-width:120px; display:flex; align-items:center;
+    justify-content:center; text-align:center;
+  }
+  .label-row .lr-val {
+    padding:12px 16px; font-size:13.5px; line-height:1.75;
+    background:#f7fafd; flex:1;
+  }
+
+  /* ─── REMINDERS BLOCK ───────────────────────────────────── */
   .reminders {
-    background: var(--dark);
-    color: white;
-    border-radius: 12px;
-    padding: 36px;
-    margin-top: 40px;
+    border-radius:12px; padding:34px; margin-top:40px; color:white;
   }
-
+  .reminders.hr-rem { background:var(--dark); }
+  .reminders.vc-rem { background:var(--vc-dark); }
   .reminders h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 24px;
-    color: var(--accent-light);
+    font-family:'Playfair Display', serif;
+    font-size:1.5rem; font-weight:700; margin-bottom:22px;
   }
+  .reminders.hr-rem h2 { color:var(--accent-light); }
+  .reminders.vc-rem h2 { color:var(--vc-light); }
 
-  .reminder-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
+  .reminder-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
   .reminder-item {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 18px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:8px; padding:16px;
   }
-
-  .reminder-item .r-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
+  .r-label {
+    font-size:10px; font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; margin-bottom:7px;
   }
-
-  .reminder-item p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
-    line-height: 1.7;
-  }
+  .hr-rem .r-label { color:var(--accent); }
+  .vc-rem .r-label { color:var(--vc-light); }
+  .reminder-item p { font-size:13px; color:rgba(255,255,255,.72); line-height:1.7; }
 
   .counter-q {
-    margin-top: 28px;
-    background: rgba(196,133,90,0.15);
-    border: 1px solid rgba(196,133,90,0.3);
-    border-radius: 8px;
-    padding: 20px;
+    margin-top:24px; border-radius:8px; padding:18px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.07);
   }
-
-  .counter-q .r-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-
-  .counter-q p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.7;
-    font-style: italic;
-  }
+  .counter-q p { font-size:13px; color:rgba(255,255,255,.82); line-height:1.7; font-style:italic; }
 
   .good-luck {
-    text-align: center;
-    margin-top: 28px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: var(--accent-light);
+    text-align:center; margin-top:24px;
+    font-family:'Playfair Display', serif;
+    font-size:1.2rem;
   }
+  .hr-rem .good-luck { color:var(--accent-light); }
+  .vc-rem .good-luck { color:var(--vc-light); }
 
-  @media (max-width: 600px) {
-    .reminder-grid { grid-template-columns: 1fr; }
-    main, .intro-note { padding-left: 20px; padding-right: 20px; }
-    header { padding: 40px 20px; }
-    .q-body { padding-left: 28px; }
+  /* ─── RESPONSIVE ────────────────────────────────────────── */
+  @media(max-width:640px){
+    main, .intro-wrap, .category-label { padding-left:18px; padding-right:18px; }
+    .site-header { padding:36px 18px; }
+    .tab-nav { padding:0 18px; }
+    .tab-btn { padding:16px 18px; font-size:12px; }
+    .q-body { padding-left:26px; }
+    .reminder-grid { grid-template-columns:1fr; }
+    .label-row { flex-direction:column; }
+    .label-row .lr-key { min-width:unset; }
   }
 </style>
 </head>
 <body>
 
-<header>
+<!-- ═══════════════════════════════════════════════════
+     GLOBAL HEADER
+═══════════════════════════════════════════════════ -->
+<div class="site-header">
   <div class="header-inner">
-    <div class="tag">HR Interview Prep</div>
-    <h1>Senior Product Manager<br><span>FORMEL SKIN</span></h1>
-    <div class="header-meta">Prepared for <strong>tomorrow's interview</strong> &middot; 11 Questions &middot; Berlin</div>
-  </div>
-</header>
-
-<div class="intro-note">
-  <div class="intro-card">
-    <div class="icon">&#128161;</div>
-    <p>Every answer below is built from your real story. Keep answers to <strong>2&ndash;3 minutes max</strong> in the HR round. Always bring it back to FORMEL SKIN. The trust dimension is your differentiator &mdash; use it consistently.</p>
+    <div class="company-tag">Interview Preparation</div>
+    <h1>Senior Product Manager<br><span>FORMEL SKIN &rarr; VOY</span></h1>
+    <div class="header-sub">
+      Prepared by Shreyas Baweja &middot;
+      <strong>HR Round</strong> &amp; <strong>VC Round (Roy)</strong> &middot; Berlin
+    </div>
   </div>
 </div>
 
-<main>
+<!-- ═══════════════════════════════════════════════════
+     TAB NAVIGATION
+═══════════════════════════════════════════════════ -->
+<div style="background:var(--cream); position:sticky; top:0; z-index:100; border-bottom:2px solid var(--border);">
+  <div class="tab-nav" style="padding:0 40px; max-width:900px; margin:0 auto; display:flex;">
+    <button class="tab-btn active-hr" id="btn-hr" onclick="switchTab('hr')">HR Round &mdash; 11 Questions</button>
+    <button class="tab-btn" id="btn-vc" onclick="switchTab('vc')">VC Round (Roy) &mdash; CRO &middot; AI &middot; Pressure</button>
+  </div>
+</div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">1</div>
-      <div class="q-title">Tell me about yourself</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p>I've always been someone who gravitates toward problems &mdash; especially ones with numbers behind them. At 13, without any formal understanding of finance, my family used to come to me when things got complicated. I helped them navigate out of a serious debt situation just by breaking it down logically. I didn't have the vocabulary for it then, but looking back &mdash; that was product thinking. Find the problem, understand the data, find the solution.</p>
-        <p>That instinct is what led me into engineering, then software development, and eventually into product management &mdash; because product sits right at that intersection of people, data, and impact that I've always been drawn to. I wanted to be serious about the transition so I came to Germany and did my MBA at Frankfurt School.</p>
-        <p>After that I joined Outfittery, and that's really where my career took shape. CRO was always my core &mdash; over four years I grew funnel conversion by over 120% while keeping CAC in check, ran 40+ A/B tests, and built an experimentation culture beyond just the product team. But what I'm most proud of is that I kept finding the next problem. I noticed we were losing 60% of customers post-acquisition and nobody was owning it from a product angle &mdash; so I picked it up.</p>
-        <p>When the merger restructured my role, it gave me space to be intentional about what came next. FORMEL SKIN was a very deliberate choice &mdash; the model is familiar, but the trust dimension here is something I find genuinely exciting. You're not just optimizing for a click. You're optimizing for someone's confidence in their own skin.</p>
-      </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>The childhood opener makes HR lean in &mdash; it's personal, memorable and leads naturally into your career</li>
-          <li>Don't rush past the 120% number &mdash; pause after saying it and let it land</li>
-          <li>The closing line about skin confidence is your strongest closer &mdash; deliver it slowly</li>
-        </ul>
-      </div>
+<!-- ═══════════════════════════════════════════════════
+     HR ROUND TAB
+═══════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="panel-hr">
+
+  <div class="intro-wrap">
+    <div class="intro-card hr-card">
+      <div class="icon">&#128161;</div>
+      <p>Every answer is built from your real story at Outfittery. Keep answers to <strong>2&ndash;3 minutes max</strong>. Always bring it back to FORMEL SKIN. The trust dimension is your differentiator &mdash; use it consistently.</p>
     </div>
   </div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">2</div>
-      <div class="q-title">Why are you leaving / why change industries?</div>
-      <div class="q-toggle">+</div>
+  <main>
+
+    <!-- Q1 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">1</div>
+        <div class="q-title">Tell me about yourself</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>I've always been someone who gravitates toward problems &mdash; especially ones with numbers behind them. At 13, without any formal understanding of finance, my family used to come to me when things got complicated. I helped them navigate out of a serious debt situation just by breaking it down logically. I didn't have the vocabulary for it then, but looking back &mdash; that was product thinking. Find the problem, understand the data, find the solution.</p>
+          <p>That instinct is what led me into engineering, then software development, and eventually into product management &mdash; because product sits right at that intersection of people, data, and impact. I wanted to be serious about the transition so I came to Germany and did my MBA at Frankfurt School.</p>
+          <p>After that I joined Outfittery, and that's really where my career took shape. CRO was always my core &mdash; over four years I grew funnel conversion by over 120% while keeping CAC in check, ran 40+ A/B tests, and built an experimentation culture beyond just the product team. But what I'm most proud of is that I kept finding the next problem. I noticed we were losing 60% of customers post-acquisition and nobody was owning it from a product angle &mdash; so I picked it up.</p>
+          <p>When the merger restructured my role, it gave me space to be intentional about what came next. FORMEL SKIN was a very deliberate choice &mdash; the model is familiar, but the trust dimension here is something I find genuinely exciting. You're not just optimizing for a click. You're optimizing for someone's confidence in their own skin.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>The childhood opener makes HR lean in &mdash; personal, memorable, leads naturally into your career</li>
+            <li>Don't rush past the 120% number &mdash; pause after saying it and let it land</li>
+            <li>The closing line about skin confidence is your strongest closer &mdash; deliver it slowly</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p>My exit from Outfittery was triggered by a merger that restructured my role &mdash; but honestly, the timing wasn't entirely surprising to me. Over the years there, I had naturally grown well beyond my original remit. What started as a CRO role kept expanding &mdash; retention, subscription management, lifetime monetization &mdash; because I kept finding problems that nobody else was solving from a product angle. In many ways, I had already outgrown the original scope and was ready for something new.</p>
-        <p>So when the merger happened, rather than jumping at the first thing that came along, I used that space to be really deliberate about what I wanted next.</p>
-        <p>When I found FORMEL SKIN it wasn't random. The business model felt immediately familiar &mdash; subscription-based, heavy paid acquisition, funnel-and-questionnaire driven. The mechanics of conversion I've spent years mastering are directly transferable.</p>
-        <p>But what genuinely excites me about making this switch is the trust dimension. In fashion you can return a box. Here, customers are trusting FORMEL SKIN with their skin, their health, their confidence. That raises the stakes of every conversion decision &mdash; and that's a more meaningful challenge for me. I want to grow in that direction.</p>
-        <p>I've also been intentional about choosing a company at a similar growth stage &mdash; where an experimentation culture still needs to be built and where CRO can create real outsized impact rather than just maintaining what already exists.</p>
+
+    <!-- Q2 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">2</div>
+        <div class="q-title">Why are you leaving / why change industries?</div>
+        <div class="q-toggle">+</div>
       </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>One sentence on the merger &mdash; then move forward. Don't linger on it</li>
-          <li>The "outgrown" narrative is evidenced naturally &mdash; it sounds like fact, not a claim</li>
-          <li>If asked about the 6-month gap, simply say you were selective and used the time well</li>
-        </ul>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>My exit from Outfittery was triggered by a merger that restructured my role &mdash; but honestly, the timing wasn't entirely surprising to me. Over the years there, I had naturally grown well beyond my original remit. What started as a CRO role kept expanding &mdash; retention, subscription management, lifetime monetization &mdash; because I kept finding problems nobody else was solving from a product angle. In many ways, I had already outgrown the original scope.</p>
+          <p>So when the merger happened, rather than jumping at the first opportunity, I used that space to be deliberate about what I wanted next.</p>
+          <p>When I found FORMEL SKIN it wasn't random. The business model felt immediately familiar &mdash; subscription-based, heavy paid acquisition, funnel-and-questionnaire driven. The mechanics of conversion I've mastered are directly transferable.</p>
+          <p>But what genuinely excites me about this switch is the trust dimension. In fashion you can return a box. Here, customers are trusting FORMEL SKIN with their skin, their health, their confidence. That raises the stakes of every conversion decision &mdash; and that's a more meaningful challenge. I've also been intentional about choosing a company at a growth stage where an experimentation culture still needs to be built and CRO can create real outsized impact.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>One sentence on the merger &mdash; then move forward. Don't linger on it</li>
+            <li>The "outgrown" narrative sounds like fact, not a claim</li>
+            <li>If asked about the 6-month gap: "I was deliberately selective &mdash; which is why this conversation is happening now"</li>
+          </ul>
+        </div>
       </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">3</div>
+        <div class="q-title">Why FORMEL SKIN specifically?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>This wasn't a speculative application &mdash; I did my research and FORMEL SKIN stood out for very specific reasons. I also know the company is rebranding to Voy and expanding from dermatology into weight loss, menopause, and hair loss under Manual. That makes this role even more interesting &mdash; it's not just a derma PM position, it's a platform-level CRO opportunity.</p>
+          <p>When I looked at the model, I immediately saw strong parallels with Outfittery: heavy paid acquisition, a funnel-and-questionnaire approach to personalise the experience, a subscription model where retention matters as much as conversion. I've spent years in exactly this combination.</p>
+          <p>But what drew me in beyond the structural fit was the trust dimension. At Outfittery a customer could return a box if they weren't happy. Here, they're trusting the company with their skin and their health. That changes how you think about every conversion decision. You can't just optimise for click-through &mdash; you have to optimise for clarity, reassurance, and genuine confidence at every touchpoint. That's a richer challenge and it genuinely excites me.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>"This wasn't speculative" immediately signals you've done your homework</li>
+            <li>Mentioning the Voy rebrand shows you know more than most candidates will</li>
+            <li>The trust point differentiates you from any generic CRO candidate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">4</div>
+        <div class="q-title">Walk me through your CRO experience and biggest impact</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>CRO has been the constant thread through everything I've done in product. Over four years at Outfittery, I grew funnel conversion by over 120% while keeping CAC in check &mdash; and the CAC part is what I'm most proud of, because growth that inflates acquisition cost isn't really growth.</p>
+          <p>My process was always data-first and cast a wide net: Tableau for step and funnel conversion, time spent per page, Hotjar for heatmaps and scroll behaviour, session recordings to catch real drop-off moments, plus exit surveys and post-completion surveys at key touchpoints. I'd even use surveys to validate designs before a single line of code was written.</p>
+          <p>From there: rough wireframes, lean feedback loops with users, designers, and developers simultaneously. Almost every decision had a back-of-envelope business case attached &mdash; not complex, but enough to pressure-test whether the effort was worth it. Then we'd build with an MVP approach, define the experiment direction upfront, agree on KPIs, and iterate. Never one big launch.</p>
+          <p>That process delivered: the 'how it works' block on the registration page (6% conversion lift), the phone number field made optional (10% lift, almost zero engineering effort), the subscription defaults change (became part of the investor story), and the Preview feature (15% AOV increase by giving customers a voice before the order was packed).</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>Lead with 120% &mdash; anchor everything around that headline</li>
+            <li>The process description shows you're systematic, not just lucky</li>
+            <li>Four concrete examples at the end means they remember your impact, not just your method</li>
+            <li>Keep this under 3 minutes &mdash; it runs long easily</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">5</div>
+        <div class="q-title">Tell me about a time you worked cross-functionally and faced friction</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>The one that stands out is when I proposed adding an informative step in the funnel &mdash; one I knew upfront would reduce short-term conversion. That's a hard pitch to a marketing team whose bonuses are tied directly to CVR and CAC.</p>
+          <p>The pushback was immediate: "Why would we deliberately hurt our conversion rate?" Fair question. So rather than debating opinions, I brought everyone to the data. Hotjar recordings of customers visibly confused at the payment step. Exit survey responses citing lack of clarity. Tableau data showing cancellation spikes right after the first order. The story was clear: we were converting customers who weren't ready, and paying for it downstream.</p>
+          <p>Then I built a simple business case &mdash; if we reduced cancellations by even a modest percentage, the LTV gain would outweigh the CVR dip. That shifted the conversation from "you want to hurt my numbers" to "okay, how do we test this properly."</p>
+          <p>We aligned on a structured experiment: clear hypothesis, agreed KPIs, defined success beyond the funnel metric. Built iteratively. And it worked &mdash; cancellations dropped from 20% to 10%. AOV stayed stable. LTV improved. But what I'm proudest of isn't the result &mdash; it's that it changed how that team thought about conversion. Not as a single funnel metric, but as a signal of business health.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>Follows STAR naturally without sounding rehearsed</li>
+            <li>"Rather than debating opinions, I brought everyone to the data" &mdash; that line shows maturity</li>
+            <li>The closing reflection shows leadership, not just execution</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">6</div>
+        <div class="q-title">How do you prioritise competing experiments and projects?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>Prioritisation always starts with impact potential anchored to actual business goals &mdash; not gut feel, and definitely not whoever shouted loudest in the last meeting.</p>
+          <p>My starting point is always the funnel data. Where are the biggest drop-offs? Where is the most volume? A 5% improvement at a high-traffic step almost always beats a 20% improvement at a low-traffic one. Size the opportunity first.</p>
+          <p>Then I layer in effort &mdash; working with developers to get a realistic complexity read. That leads into a rough ICE-style scoring: impact, confidence, ease. It gives me something objective to anchor stakeholder conversations on, so prioritisation doesn't become a political debate.</p>
+          <p>I also always maintain two parallel tracks. One for high-impact, higher-effort strategic bets &mdash; funnel restructuring, new steps. And one for quick wins &mdash; small changes like tweaking copy or making a field optional &mdash; that ship fast, generate learnings, and keep momentum alive while the bigger work is in progress.</p>
+          <p>The one thing I'm strict about: never running too many experiments simultaneously on overlapping funnel segments. That corrupts data and makes attribution impossible. Statistical rigour isn't optional &mdash; it's foundational.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>"Not whoever shouted loudest" lands with every HR person who's seen that happen</li>
+            <li>Two parallel tracks shows you balance strategy with momentum &mdash; a senior PM skill</li>
+            <li>Statistical rigour maps directly to their JD language</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">7</div>
+        <div class="q-title">Tell me about a test that failed &mdash; what did you learn?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>This is genuinely one of my most important learning moments, so I'm happy to be honest about it.</p>
+          <p>We were running an experiment introducing a styling fee for womenswear customers &mdash; but due to a technical oversight, it accidentally went live for a small proportion of menswear customers too. It was low season, the sample was small, and the team decided to keep it running and observe.</p>
+          <p>The early results were extraordinary. AOV showed a potential 50% uplift. Conversion drop was less than 20%. Statistically significant at over 95% confidence. On paper this looked like a company-level opportunity. I got genuinely excited and strongly advocated for taking it further.</p>
+          <p>So we ran structured follow-up experiments to validate. And that's where it fell apart. Conversion declined far more than the initial test suggested, and the AOV uplift didn't hold. The opportunity I had championed simply didn't exist at scale.</p>
+          <p>The learning was humbling. Even statistically valid, high-confidence data can mislead you &mdash; especially when it came from an accidental experiment during low season with unusual sample characteristics. Novelty effects, seasonal behaviour, small sample quirks &mdash; they can all make results look better than they are. Since then I've always been the person in the room saying: let's measure this over time, across seasons, and at scale before we commit. The most dangerous test result is one that looks too good to be true.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>"Happy to be honest about it" sets a confident, not defensive tone</li>
+            <li>The failure wasn't careless &mdash; you followed rigorous process and it still misled you. That's sophisticated</li>
+            <li>"Too good to be true" closer is memorable and shows real self-awareness</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">8</div>
+        <div class="q-title">How do you build a culture of experimentation?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>The biggest barrier to experimentation is almost never technical. It's behavioural. People are naturally loss-averse. They're afraid a test will hurt their numbers, or that a failed experiment reflects badly on them. Breaking that mindset is the real work.</p>
+          <p>My approach has always come down to three things: democratise the data, celebrate the learning, and make it feel safe to test.</p>
+          <p>On data &mdash; I made sure that funnel performance and test results weren't locked inside product. I shared them actively with marketing, CRM, and performance teams, ran sessions walking people through what the data was telling us, and encouraged them to bring their own hypotheses. Over time experimentation stopped being a product team activity and started happening across the business. 40+ A/B tests, many co-owned by non-product teams.</p>
+          <p>On celebrating learning &mdash; when the styling fee experiment didn't hold up at scale, I wrote it up transparently and shared it widely. I framed it as exactly what experimentation is designed to do: catch something before you commit fully. That reframe matters enormously for psychological safety.</p>
+          <p>On making it safe &mdash; this comes back to process. When teams see that every experiment has a clear hypothesis, defined KPIs, and a structured rollback plan, it stops feeling like a gamble and starts feeling like a controlled investment in learning. The goal is a point where people feel more uncomfortable not testing than testing. That's the real culture shift.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>"Biggest barrier is behavioural not technical" signals leadership maturity immediately</li>
+            <li>Referencing the styling fee failure here ties your answers together coherently</li>
+            <li>"More uncomfortable not testing than testing" is quotable &mdash; use it as your closer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">9</div>
+        <div class="q-title">Where do you see yourself in 3&ndash;5 years? + Strength &amp; Weakness</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p><strong>On where I'm headed:</strong></p>
+          <p>My honest ambition is to grow into a Head of Product or VP Product role &mdash; but I want to earn it through impact, not just tenure. If I come into FORMEL SKIN, demonstrably move conversion metrics, build an experimentation culture, and expand my scope naturally the way I did at Outfittery &mdash; that progression will follow. What's also important to me is real depth in health tech. I've chosen this deliberately because it's where product thinking creates genuinely meaningful outcomes. And I'm increasingly drawn to the strategic layer &mdash; how product decisions connect to business model evolution and investor narrative. I got a first taste of that when the subscription defaults change became part of the investor story. I want more of that.</p>
+          <p><strong>On my biggest strength:</strong></p>
+          <p>I connect data to decisions faster than most. I don't just collect data &mdash; I know which data matters. I synthesise quickly across Tableau, Hotjar, surveys, and session recordings, and translate it into a business case that non-product stakeholders can act on. That's what let me drive results and grow my scope at Outfittery &mdash; people trusted that my recommendations were grounded.</p>
+          <p><strong>On my biggest weakness:</strong></p>
+          <p>That same rigour can slow me down. I have a natural pull toward one more data point, one more validation round &mdash; especially on high-stakes decisions. I've had to consciously learn when good data is good enough. The cost-of-delay framework I use in my tickets has actually helped me apply that discipline to myself &mdash; putting a number on what waiting costs forces me to move when the evidence is already sufficient.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>"Earn it through impact not time served" shows ambition without threatening the hiring manager</li>
+            <li>The investor narrative point is sophisticated &mdash; very relevant at Voy's growth stage</li>
+            <li>The weakness is real, self-aware, and shows active growth &mdash; never say you "work too hard"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">10</div>
+        <div class="q-title">Salary expectations and notice period</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p><strong>On notice period:</strong></p>
+          <p>I'm available immediately. I left Outfittery in August and have been deliberately selective about my next move &mdash; which is why this conversation is happening now rather than six months ago.</p>
+          <p><strong>On salary:</strong></p>
+          <p>Based on my research into Senior PM compensation in Berlin at this level and reflecting my experience and the scope of the role, I'm looking in the range of &euro;90,000&ndash;&euro;100,000. That said, I know there's no ESOP here &mdash; so I'd expect the base to reflect that. I'm genuinely more focused on the total package and the opportunity to create real impact &mdash; open to a conversation if the base is complemented well by bonus, benefits, and trajectory.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>Always give a range, never a single number &mdash; it opens negotiation</li>
+            <li>State the number confidently and stay quiet &mdash; don't fill the silence</li>
+            <li>You mentioned &euro;74&ndash;88K to Zac. Re-anchor to &euro;90&ndash;100K using the no-ESOP framing &mdash; it's legitimate</li>
+            <li>If they push back, ask what the budgeted range is before conceding anything</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="q-card hr-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number hr-num">11</div>
+        <div class="q-title">How do you handle conflict with developers?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>I try to make conflict unlikely before it starts. Every ticket I write includes a business case, a clear definition of done, and a cost-of-delay calculation. When a developer understands why something matters commercially &mdash; not just what they're building &mdash; the conversation shifts from "do we do this" to "how do we do this best." That removes a huge amount of friction upfront.</p>
+          <p>But conflict still happens. When it does, my first move is to genuinely listen and understand the technical constraint. Sometimes they're right and I adjust. But if the business case is strong, I ask them to make an equally strong case for why we shouldn't &mdash; with data, not just effort estimates.</p>
+          <p>A real example: a developer pushed back on a funnel change because of technical debt &mdash; the existing architecture made it messier than it should have been. I showed what delay was costing us in conversion value every week we didn't ship. We found a middle path &mdash; an MVP implementation that wasn't architecturally perfect but delivered the business result, with a follow-up ticket committed for cleanup. Both sides got what they needed.</p>
+          <p>My principle: I will never dismiss a technical concern, but I will always anchor back to business impact. Give developers the why, and most of the time they become your strongest allies.</p>
+        </div>
+        <div class="coaching">
+          <div class="coaching-title">Coaching Notes</div>
+          <ul>
+            <li>Opening with prevention shows maturity &mdash; you solve problems before they exist</li>
+            <li>The MVP middle path shows pragmatism &mdash; you don't need to win every battle, just the outcome</li>
+            <li>The closing principle reflects how good PMs actually operate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- HR REMINDERS -->
+    <div class="reminders hr-rem">
+      <h2>Final Reminders &mdash; HR Round</h2>
+      <div class="reminder-grid">
+        <div class="reminder-item">
+          <div class="r-label">Your Process</div>
+          <p>Always reference Tableau &rarr; Hotjar &rarr; surveys &rarr; wireframes &rarr; business case &rarr; MVP &rarr; iterate. This is your signature.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">The Trust Dimension</div>
+          <p>Your differentiator at FORMEL SKIN. You're not just a CRO person &mdash; you understand what trust means in health tech.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">Always Bring It Back</div>
+          <p>End every answer connecting to FORMEL SKIN / Voy. Make every answer feel specifically prepared for them.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">Timing</div>
+          <p>2&ndash;3 minutes maximum per answer. Clarity over completeness. HR values a clear communicator.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">Salary</div>
+          <p>Anchor at &euro;90,000&ndash;&euro;100,000. State it confidently. Stay quiet after. Don't fill the silence.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">The Gap</div>
+          <p>If asked: "I left in August and was deliberately selective &mdash; which is why this conversation is happening now."</p>
+        </div>
+      </div>
+      <div class="counter-q">
+        <div class="r-label">Counter Question &mdash; Save for Hiring Manager Round, Not HR</div>
+        <p>"You went through a merger recently and are rebranding to Voy &mdash; I've lived through a merger myself and know the product implications. Can you share where you are in the integration journey and whether this role will involve navigating some of that complexity?"</p>
+      </div>
+      <div class="good-luck">You're well prepared. Go get it. &#127919;</div>
+    </div>
+
+  </main>
+</div><!-- /panel-hr -->
+
+
+<!-- ═══════════════════════════════════════════════════
+     VC ROUND TAB
+═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-vc">
+
+  <div class="intro-wrap">
+    <div class="intro-card vc-card">
+      <div class="icon">&#9881;&#65039;</div>
+      <p>Roy (VP Product, Manual / London) is stress-testing your <strong>thinking system</strong>, not just your story. Every answer must show <strong>depth</strong> (you've been here before), <strong>judgment</strong> (why this tool, not just that it exists), and <strong>translation</strong> (connect micro-decisions to LTV, CAC, investor narrative). Voy's rebrand &amp; platform ambition is live context &mdash; embed it.</p>
     </div>
   </div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">3</div>
-      <div class="q-title">Why FORMEL SKIN specifically?</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p>This wasn't a speculative application &mdash; I did my research and there were very specific reasons this role stood out.</p>
-        <p>When I looked at the model, I immediately saw strong parallels with Outfittery. Both companies run heavy paid acquisition, both use a funnel-and-questionnaire approach to personalise the customer experience, and both operate on a subscription model where retention matters as much as conversion. I've spent years in exactly this combination.</p>
-        <p>But beyond the structural fit, what drew me in was the trust dimension. At Outfittery we sold fashion &mdash; a customer could return a box if they weren't happy. Here, customers are trusting FORMEL SKIN with their skin, their health, their self-confidence. That changes how you think about every single conversion decision. You can't just optimise for click-through &mdash; you have to optimise for clarity, reassurance, and genuine confidence at every touchpoint. That's a richer challenge and it genuinely excites me.</p>
-        <p>I also see real opportunity here. From the outside I can already see room to build a more structured experimentation framework, bring in best practices from adjacent industries, and close gaps in the CRO approach. That's exactly the kind of environment where I do my best work &mdash; where I can shape things rather than just maintain them.</p>
-      </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>Opening with "this wasn't speculative" immediately signals you've done your homework</li>
-          <li>The trust point differentiates you from any generic CRO candidate applying to this role</li>
-          <li>The last paragraph is confident without being arrogant &mdash; you've diagnosed opportunity, not criticised them</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <main>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">4</div>
-      <div class="q-title">Walk me through your CRO experience and biggest impact</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p>CRO has been the constant thread through everything I've done in product. Over four years at Outfittery, I grew website funnel conversion by over 120% while keeping CAC in check &mdash; and the CAC part is what I'm most proud of, because growth that inflates your acquisition cost isn't really growth.</p>
-        <p>But I want to share how I approached it, because the process is what made it repeatable. I always started with data and cast a wide net &mdash; Tableau for step and funnel conversion, time spent on each page, Hotjar for heatmaps and scroll behaviour, session recordings to catch real drop-off moments. I'd also set up surveys at key touchpoints &mdash; exit surveys, post-completion surveys &mdash; and even used them to validate designs before a single line of code was written. When we were redesigning the success page and account dashboard, survey feedback shaped the direction entirely.</p>
-        <p>From there I'd develop rough wireframes and run lean feedback loops simultaneously with users, designers, and developers. Almost every decision had a back-of-envelope business case attached &mdash; not complex, but enough to pressure-test whether the effort was worth it.</p>
-        <p>Then we'd build with an MVP approach &mdash; defining the experimentation direction upfront, agreeing on which KPIs we expected to move, and building iteratively so we could keep learning. Never one big launch. Always continuous iteration.</p>
-        <p>That process delivered the homepage revamp &mdash; where the 'how it works' block turned out to be one of our biggest single conversion lifters. The signup page restructure where we added Google login and moved explanatory content below the fold. The subscription defaults change which became a meaningful investor story. And smaller wins like making the phone number field optional &mdash; immediate conversion lift, almost zero engineering effort.</p>
-      </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>Lead with the 120% headline &mdash; anchor everything around it</li>
-          <li>The process description shows you're systematic and repeatable &mdash; not just lucky</li>
-          <li>Mentioning the investor story on subscriptions shows you think beyond the funnel</li>
-          <li>Keep this under 3 minutes &mdash; it can easily run long</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+    <!-- ─── CATEGORY: CRO ─────────────────────────────────── -->
+    <div class="category-label"><span class="cat-vc">Category 1 &mdash; CRO &amp; Experimentation Depth</span></div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">5</div>
-      <div class="q-title">Tell me about a time you worked cross-functionally and faced friction</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p>The one that stands out most is when I proposed adding a new informative step in the funnel &mdash; one that I knew upfront was going to reduce short-term conversion. That's a hard pitch to make to a marketing team whose bonuses are tied to conversion and CAC.</p>
-        <p>The pushback was immediate: "Why would we deliberately hurt our conversion rate?" And honestly, that's a fair question. So rather than debating opinions, I brought everyone to the data. I showed Hotjar recordings of customers visibly confused at the payment step. Exit survey responses where people said they didn't feel confident about what they were paying for. Tableau data showing cancellation spikes right after the first order. The story was clear &mdash; we were converting customers who weren't ready, and we were paying for it downstream.</p>
-        <p>Then I built a simple business case &mdash; if we reduced cancellations by even a modest amount, the lifetime value gain would more than offset the conversion dip. That shifted the conversation from "you want to hurt my numbers" to "okay, how do we test this properly."</p>
-        <p>We aligned on a structured experiment &mdash; clear hypothesis, agreed KPIs, defined what success looked like beyond just the funnel. Built it iteratively so we could course-correct. And it worked. Cancellations dropped, AOV stayed stable, LTV improved.</p>
-        <p>But the thing I'm proudest of isn't the result &mdash; it's that it changed how that team thought about conversion. Not as a single funnel metric, but as a signal of business health.</p>
+    <!-- VC Q1 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">1</div>
+        <div class="q-title">Walk me through how you designed your experimentation framework from scratch &mdash; what were the hardest decisions?</div>
+        <div class="q-toggle">+</div>
       </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>This follows STAR naturally without sounding rehearsed</li>
-          <li>"Rather than debating opinions, I brought everyone to the data" &mdash; that line shows maturity</li>
-          <li>The closing reflection shows leadership, not just execution</li>
-        </ul>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>At Outfittery I didn't inherit a framework &mdash; I built it from scratch over four years. The tooling was the easy part. The hardest decisions were all about governance.</p>
+          <p>The framework had five layers. First, a multi-signal data stack: Tableau for step-level funnel conversion, Hotjar for heatmaps and recordings, exit surveys at key drop-off points, and session recordings for real-time behavioural patterns. Four sources not one &mdash; because each source reveals a different dimension of the same problem. Second, a hypothesis system anchored to funnel volume, not just conversion delta. A 5% lift at a high-traffic step almost always outweighs a 20% lift at a low-traffic one. Third, a test design protocol: primary KPI plus guardrail metrics defined before any code was written. No test without a written hypothesis. Fourth, governance: maximum two concurrent tests on overlapping funnel segments. And fifth, a knowledge system where every test &mdash; including failures &mdash; was documented, shared, and framed as a learning investment.</p>
+          <p>The hardest decision was enforcing the governance rule. We had stakeholders who wanted five tests running simultaneously. I had to hold the line &mdash; because when two tests run on overlapping segments without proper segregation, you can't attribute results. I used a real example where two tests collided and we lost three weeks of usable data. That argument stuck.</p>
+          <p>At Voy, with the questionnaire &rarr; plan selection &rarr; payment funnel, the same discipline applies. Test contamination in a health context doesn't just cost data quality &mdash; it could influence clinical perception.</p>
+        </div>
+        <div class="callout callout-blue">
+          <span class="callout-label">Framework at a Glance</span>
+          Signals &rarr; Hypothesis System &rarr; Test Protocol &rarr; Governance (max 2 concurrent overlapping) &rarr; Knowledge System (failures documented publicly). The hardest layer is always governance &mdash; cultural before technical.
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">6</div>
-      <div class="q-title">How do you prioritise competing experiments and projects?</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p>Prioritisation for me always starts with impact potential anchored to actual business goals &mdash; not gut feel, and definitely not whoever shouted loudest in the last meeting.</p>
-        <p>My starting point is always the funnel data. Where are the biggest drop-offs? Where is the most volume? A 5% improvement at a high-traffic step almost always beats a 20% improvement somewhere with low traffic. So I size the opportunity first before anything else.</p>
-        <p>Then I layer in effort &mdash; working with developers to get a realistic complexity read. That leads naturally into a rough ICE-style scoring: impact, confidence, ease. It gives me something objective to anchor stakeholder conversations on, so prioritisation doesn't turn into a political debate.</p>
-        <p>I also always try to maintain two parallel tracks. One for high-impact, higher-effort strategic bets &mdash; things like funnel restructuring or new steps. And one for quick wins &mdash; small changes like tweaking copy or making a field optional &mdash; that ship fast, generate learnings, and keep momentum alive while the bigger work is in progress.</p>
-        <p>The one thing I'm strict about is not running too many experiments simultaneously on overlapping parts of the funnel &mdash; because that corrupts your data and makes it impossible to attribute results cleanly. Statistical rigour isn't optional. It's foundational.</p>
-        <p>And prioritisation is a living thing &mdash; I revisit it regularly, because what was the right call three weeks ago may not be right today.</p>
+    <!-- VC Q2 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">2</div>
+        <div class="q-title">How do you determine the right sample size and test duration before calling a result?</div>
+        <div class="q-toggle">+</div>
       </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>"Not whoever shouted loudest" lands with every HR person who's seen that happen</li>
-          <li>The two parallel tracks point shows you balance strategy with momentum &mdash; that's a senior PM skill</li>
-          <li>Statistical rigour point maps directly to their JD language &mdash; it will register</li>
-        </ul>
+      <div class="q-body">
+        <table class="fw-table">
+          <tr><th>Step</th><th>Your Rule</th><th>Why It Matters</th></tr>
+          <tr><td>Baseline CVR</td><td>30-day rolling average. Never last 7 days &mdash; too volatile with paid traffic spikes.</td><td>Your baseline determines the sample size you need. Get it wrong and your MDE is wrong.</td></tr>
+          <tr><td>MDE</td><td>Smallest business-meaningful change &mdash; at Outfittery usually 10&ndash;15% relative lift. Not what "looks exciting."</td><td>Too small = enormous sample required. Too large = you miss real wins.</td></tr>
+          <tr><td>Power + Confidence</td><td>80% power, 95% confidence, two-tailed. Always use a calculator. Never eyeballed.</td><td>Under-powered tests produce false negatives &mdash; you kill changes that actually work.</td></tr>
+          <tr><td>Duration Floor</td><td>Minimum 2 full business cycles (2 weeks minimum). Never called early.</td><td>Day-of-week and paid campaign cycles distort early results. The styling fee accident confirmed this.</td></tr>
+          <tr><td>Guardrail Metrics</td><td>AOV, cancellation rate, and LTV proxy always tracked alongside CVR.</td><td>A CVR win that hurts LTV is not a win. It's a delayed write-down.</td></tr>
+        </table>
+        <div class="callout callout-amber">
+          <span class="callout-label">Voy / Formel Skin Specific</span>
+          Their break-in phase means a 2-week test on plan selection CVR can mislead badly. A customer who converts to the 1-month plan during a short test may cancel before the 60-day money-back window closes. I'd always pair plan-selection CVR tests with a 60&ndash;90 day cancellation guardrail &mdash; even if that extends the decision timeline. Roy needs to hear you thinking about this trade-off unprompted.
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">7</div>
-      <div class="q-title">Tell me about a test that failed &mdash; what did you learn?</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p>This one is genuinely one of my most important learning moments, so I'm happy to be honest about it.</p>
-        <p>We were running an experiment introducing a styling fee for womenswear customers &mdash; but due to a technical oversight, it accidentally went live for a small proportion of menswear customers too. It was low season, the sample was small, and the team decided to keep it running and observe rather than pull it immediately.</p>
-        <p>The early results were extraordinary. AOV showed a potential 50% uplift. Conversion drop was less than 20%. And the data was statistically significant at over 95% confidence. On paper this looked like a company-level growth opportunity. I got genuinely excited and strongly advocated for taking it further.</p>
-        <p>So we ran structured follow-up experiments to validate and scale it. And that's where it fell apart. Conversion declined far more than the initial test suggested, and the AOV uplift didn't hold. The opportunity I had championed simply didn't exist at scale.</p>
-        <p>The learning was humbling. Even statistically valid, high-confidence data can mislead you &mdash; especially when it came from an accidental experiment running during low season with unusual sample characteristics. Novelty effects, seasonal behaviour, small sample quirks &mdash; they can all make results look better than they really are.</p>
-        <p>Since then I've always been the person in the room saying: let's measure this over time, across seasons, and at scale before we commit. No matter how perfect the numbers look in the moment. The most dangerous test result is one that looks too good to be true.</p>
+    <!-- VC Q3 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">3</div>
+        <div class="q-title">How do you handle A/B results that conflict with qualitative data?</div>
+        <div class="q-toggle">+</div>
       </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>Opening with "I'm happy to be honest about it" sets a confident, not defensive tone</li>
-          <li>The failure wasn't careless &mdash; you followed rigorous process and it still misled you. That's sophisticated</li>
-          <li>"Too good to be true" closer is memorable and shows real self-awareness</li>
-          <li>This differentiates you from candidates who pick trivial failures or can't recall any</li>
-        </ul>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>When quantitative and qualitative data conflict, the answer is almost never "ignore one." It's usually a signal that you're measuring the wrong thing, or measuring the right thing at the wrong time.</p>
+        </div>
+        <table class="fw-table">
+          <tr><th>Scenario</th><th>What It Usually Means</th><th>Your Move</th></tr>
+          <tr><td>Quant says win, qual shows confusion</td><td>You optimised the click, not the comprehension. Short-term CVR up, LTV at risk.</td><td>Trust the qual. Add LTV guardrail. Extend test horizon.</td></tr>
+          <tr><td>Quant flat, qual shows frustration</td><td>Traffic too low for power, or you're averaging across segments with opposite behaviours.</td><td>Segment the quant result &mdash; look at new vs returning, paid vs organic.</td></tr>
+          <tr><td>Both contradict entirely</td><td>Different user populations. Hotjar skews to engaged users; GA captures everyone.</td><td>Align your qual sample to the same segment as your quant before comparing.</td></tr>
+        </table>
+        <div class="callout callout-green">
+          <span class="callout-label">Your Story: The Registration Page</span>
+          Quantitative data said our registration page CVR was holding steady. But Hotjar session recordings told a different story &mdash; customers from paid channels were scrolling to the footer, clicking FAQ links, leaving the funnel. The quant data missed this because those customers showed up as drop-offs at the next step. The qual told us they needed to understand the service before giving us an email address. We added a 'how it works' block. CVR increased 6%. The lesson: always map where each data source sits in the customer journey before declaring a conflict.
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">8</div>
-      <div class="q-title">How do you build a culture of experimentation?</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p>This is something I care a lot about &mdash; because the biggest barrier to experimentation is almost never technical. It's behavioural. People are naturally loss-averse. They're afraid a test will hurt their numbers, or that a failed experiment will reflect badly on them personally. Breaking that mindset is the real work.</p>
-        <p>My approach has always come down to three things: democratise the data, celebrate the learning, and make it feel safe to test.</p>
-        <p>On data &mdash; I made sure that funnel performance and test results weren't locked inside product. I shared them actively with marketing, CRM, and performance teams. Ran sessions where I walked people through what the data was telling us and encouraged them to bring their own hypotheses. Over time, experimentation stopped being a product team activity and started happening across the business. More than 40 A/B tests, many co-owned by non-product teams.</p>
-        <p>On celebrating learning &mdash; when the styling fee experiment didn't hold up at scale, I wrote it up transparently and shared it widely. I framed it as exactly what experimentation is designed to do &mdash; catch something before you commit fully. That reframe matters enormously for psychological safety.</p>
-        <p>On making it safe &mdash; this comes back to process. When teams see that every experiment has a clear hypothesis, defined KPIs, and a structured rollback plan, it stops feeling like a gamble and starts feeling like a controlled investment in learning.</p>
-        <p>The goal is to reach a point where people feel more uncomfortable not testing than testing. That's the real culture shift. And it's what I'd want to build at FORMEL SKIN.</p>
+    <!-- VC Q4 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">4</div>
+        <div class="q-title">How do you prevent p-hacking or premature conclusions in your team?</div>
+        <div class="q-toggle">+</div>
       </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>"Biggest barrier is behavioural not technical" immediately signals leadership maturity</li>
-          <li>Referencing the styling fee failure here ties your answers together coherently</li>
-          <li>"More uncomfortable not testing than testing" is memorable and quotable</li>
-        </ul>
+      <div class="q-body">
+        <div class="answer-text">
+          <p><strong>Four non-negotiable rules:</strong></p>
+          <p><strong>1. Pre-register everything.</strong> Hypothesis, primary KPI, MDE, and end date &mdash; all written before any test goes live. If it wasn't written first, it doesn't count as a validated result.</p>
+          <p><strong>2. No mid-test peeking.</strong> We use sequential testing methods if interim reads are genuinely needed &mdash; not standard significance thresholds on live data.</p>
+          <p><strong>3. Duration is locked.</strong> The test ends on the pre-agreed date, not when the numbers look good. I've had stakeholders ask me to call tests early three times. Answered no three times.</p>
+          <p><strong>4. High-stakes results require replication.</strong> One test result is a hypothesis. We validate before we scale &mdash; and before we build investor narrative around it.</p>
+        </div>
+        <div class="callout callout-amber">
+          <span class="callout-label">Use the Styling Fee Story Here</span>
+          The most dangerous test result I ever saw looked perfect: 95% confidence, 50%+ AOV uplift. The data was statistically valid. It was also from an accidental low-season experiment on an unintended segment. We scaled it &mdash; and it collapsed. Even a clean result from the wrong conditions is a misleading result. That experience is why I treat every statistically significant result as a hypothesis until replicated across seasons and at scale. The styling fee experiment is now my team's shorthand for not celebrating too early.
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">9</div>
-      <div class="q-title">Where do you see yourself in 3&ndash;5 years? + Strength &amp; Weakness</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p><strong>On where I'm headed:</strong></p>
-        <p>My honest ambition is to grow into a Head of Product or VP Product role &mdash; but I want to earn that through impact, not just time served. The way I think about it: if I come into FORMEL SKIN, demonstrably move conversion metrics, build an experimentation culture, and expand my scope naturally the way I did at Outfittery &mdash; that progression will follow on its own.</p>
-        <p>What's also important to me in the next few years is real industry depth in health tech. I've chosen this deliberately because I believe it's where product thinking can create genuinely meaningful outcomes &mdash; not just commercial ones, but things that actually affect people's lives.</p>
-        <p>I'm also increasingly drawn to the strategic layer &mdash; how product decisions connect to business model evolution and investor narrative. I got a first taste of that at Outfittery when the subscription defaults change became part of the investor story. I want more of that kind of thinking.</p>
-        <p><strong>On my biggest strength:</strong></p>
-        <p>I connect data to decisions faster than most people. I don't just collect data &mdash; I know which data matters. I synthesise quickly across Tableau, Hotjar, surveys, and session recordings, and translate it into a business case that non-product stakeholders can actually act on. That's what let me drive results and grow my scope at Outfittery &mdash; people trusted that my recommendations were grounded in something real.</p>
-        <p><strong>On my biggest weakness:</strong></p>
-        <p>That same rigour can slow me down. I have a natural pull toward one more data point, one more validation round &mdash; especially on high-stakes decisions. I've had to consciously learn when good data is good enough and when waiting for perfect data is itself a costly decision. The cost-of-delay framework I use in my tickets has actually helped me apply that discipline to myself &mdash; putting a number on what waiting costs forces me to move when the evidence is already sufficient.</p>
+    <!-- VC Q5 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">5</div>
+        <div class="q-title">How do you measure long-term impact beyond immediate conversion lift?</div>
+        <div class="q-toggle">+</div>
       </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>"Earn it through impact not time served" shows ambition without threatening the hiring manager</li>
-          <li>The investor narrative point is sophisticated &mdash; relevant at FORMEL SKIN's growth stage</li>
-          <li>The weakness is real, self-aware, and shows active growth &mdash; never say you work too hard</li>
-          <li>Turning the weakness into cost-of-delay framework is elegant &mdash; it loops back to your process</li>
-        </ul>
+      <div class="q-body">
+        <table class="fw-table">
+          <tr><th>Metric Tier</th><th>What You Measure</th><th>Time Horizon</th></tr>
+          <tr><td>Tier 1: Signal</td><td>Step CVR, completion rate, form drop-off</td><td>0&ndash;7 days (test window)</td></tr>
+          <tr><td>Tier 2: Activation Quality</td><td>Month-1 churn, subscription continuation after first delivery</td><td>30&ndash;60 days</td></tr>
+          <tr><td>Tier 3: LTV Signal</td><td>AOV trajectory, plan upgrades, upsell rate</td><td>60&ndash;180 days</td></tr>
+          <tr><td>Tier 4: Business Impact</td><td>CAC/LTV ratio, payback period shift, cohort contribution margin</td><td>Quarterly</td></tr>
+          <tr><td>Tier 5 (Voy-specific)</td><td>Treatment completion rate, break-in dropout, compliance rate</td><td>Ongoing</td></tr>
+        </table>
+        <div class="callout callout-green">
+          <span class="callout-label">The Cancellation Story Is Your Proof</span>
+          At Outfittery I discovered 20% of new orders were being cancelled &mdash; not because customers didn't want the product, but because they didn't understand what they'd signed up for. We had optimised acquisition CVR without measuring what happened downstream. When I introduced the informative step (deliberately accepting a CVR drop of ~20%), order cancellations halved from 20% to 10%. The downstream metric was the real metric. At Voy, the month-1 cancellation rate is the metric that exposes whether your conversion was quality conversion.
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">10</div>
-      <div class="q-title">Salary expectations and notice period</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p><strong>On notice period:</strong></p>
-        <p>I'm available immediately. I left Outfittery in August and have been deliberately selective about my next move &mdash; which is why this conversation is happening now rather than six months ago.</p>
-        <p><strong>On salary:</strong></p>
-        <p>Based on my research into Senior PM compensation in Berlin at this level, and reflecting my experience and the scope of this role, I'm looking in the range of &euro;90,000 &ndash; &euro;100,000. That said, I'm genuinely more focused on the total package and the opportunity to create real impact &mdash; so I'm open to a conversation if the base is complemented well by performance bonus, benefits, and growth trajectory.</p>
-      </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>Always give a range, never a single number &mdash; it opens negotiation</li>
-          <li>State the number confidently and then stay quiet &mdash; don't fill the silence</li>
-          <li>You're not obligated to share your last salary in Germany &mdash; redirect to "I'm looking for X based on market and scope" if asked</li>
-          <li>If they push back, ask what the budgeted range is before conceding anything</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+    <!-- ─── CATEGORY: AI ──────────────────────────────────── -->
+    <div class="category-label"><span class="cat-vc">Category 2 &mdash; AI &amp; Modern Product Development</span></div>
 
-  <div class="q-card">
-    <div class="q-header" onclick="toggle(this)">
-      <div class="q-number">11</div>
-      <div class="q-title">How do you handle conflict with developers?</div>
-      <div class="q-toggle">+</div>
-    </div>
-    <div class="q-body">
-      <div class="answer-text">
-        <p>The honest answer is that I try to make conflict unlikely before it starts. Every ticket I write includes a business case, a clear definition of done, and a cost-of-delay calculation. When a developer understands why something matters commercially &mdash; not just what they're building &mdash; the conversation naturally shifts from "do we do this" to "how do we do this best." That removes a huge amount of friction upfront.</p>
-        <p>But conflict still happens, and when it does my position is clear. I deeply respect technical expertise &mdash; developers often see things I don't. So my first move is always to genuinely listen and understand the constraint. Sometimes they're right and I adjust. But if I believe the business case is strong, I ask them to make an equally strong case for why we shouldn't move forward &mdash; with data, not just effort estimates.</p>
-        <p>A real example: a developer pushed back on a funnel change because of technical debt &mdash; the existing architecture made it messier than it should have been. I understood that completely. But I showed what delay was costing us in conversion value every week we didn't ship. We found a middle path &mdash; an MVP implementation that wasn't architecturally perfect but delivered the business result, with a follow-up ticket committed for the cleanup. Both sides got what they needed.</p>
-        <p>My general principle is: I will never dismiss a technical concern, but I will always anchor the conversation back to business impact. Developers respond much better to a PM who shows them the numbers and gives them real context than one who just says "because the business wants it." Give them the why, and most of the time they become your strongest allies.</p>
+    <!-- VC Q6 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">6</div>
+        <div class="q-title">How have you used AI in your product development process so far?</div>
+        <div class="q-toggle">+</div>
       </div>
-      <div class="coaching">
-        <div class="coaching-title">Coaching Notes</div>
-        <ul>
-          <li>Opening with prevention shows maturity &mdash; you solve problems before they exist</li>
-          <li>The MVP middle path example shows pragmatism &mdash; you don't need to win every battle, just the outcome</li>
-          <li>The closing principle is genuine &mdash; it reflects how good PMs actually operate</li>
-        </ul>
+      <div class="q-body">
+        <table class="fw-table">
+          <tr><th>Use Case</th><th>How</th><th>Honest Outcome</th></tr>
+          <tr><td>Qual synthesis</td><td>Used AI to cluster open-text survey responses and Hotjar session note themes &mdash; previously done manually over days</td><td>3x faster insight synthesis. Surfaced themes I was unconsciously discounting.</td></tr>
+          <tr><td>Hypothesis generation</td><td>Fed funnel data + competitor teardown into AI to generate 15+ testable hypotheses, then scored with ICE</td><td>Expanded hypothesis backlog without adding headcount.</td></tr>
+          <tr><td>Copy variant generation</td><td>Generated 10&ndash;12 headline and CTA variants for each copy test, pre-filtered by clarity and trust criteria before narrowing to 2&ndash;3</td><td>Faster test setup. The AI generated options I wouldn't have thought of alone.</td></tr>
+          <tr><td>Competitor analysis</td><td>AI-assisted teardown of competitor plan selection and questionnaire flows</td><td>Informed our own plan selection redesign with broader benchmarks.</td></tr>
+          <tr><td>Claude for coding</td><td>Using Claude for pet projects and AI-adjacent product tooling (current)</td><td>Building fluency in what's easy vs hard to build &mdash; a core PM skill for this era.</td></tr>
+        </table>
+        <div class="callout callout-blue">
+          <span class="callout-label">Frame It This Way</span>
+          I use AI as a force multiplier for judgment I already have &mdash; not a replacement for it. The value is in scale and breadth: doing in minutes what used to take hours, and generating options I wouldn't have thought of alone. The judgment about what to test, what matters, and what the data means &mdash; that's still mine. I'm actively building AI product sense because the PMs who understand what AI can and can't do will build the best roadmaps in the next three years.
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="reminders">
-    <h2>Final Reminders for Tomorrow</h2>
-    <div class="reminder-grid">
-      <div class="reminder-item">
-        <div class="r-label">Your Process</div>
-        <p>Always reference your data-first process &mdash; Tableau, Hotjar, surveys, wireframes, business case, MVP, iterate. This is your signature and it's strong.</p>
+    <!-- VC Q7 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">7</div>
+        <div class="q-title">How would you use AI to accelerate CRO at FORMEL SKIN / Voy specifically?</div>
+        <div class="q-toggle">+</div>
       </div>
-      <div class="reminder-item">
-        <div class="r-label">The Trust Dimension</div>
-        <p>This is your differentiator at FORMEL SKIN. Weave it in wherever relevant. You're not just a CRO person &mdash; you understand what trust means in health tech.</p>
-      </div>
-      <div class="reminder-item">
-        <div class="r-label">Always Bring It Back</div>
-        <p>End every answer by connecting to FORMEL SKIN and what you'd bring or build there. Make every answer feel like it was prepared specifically for them.</p>
-      </div>
-      <div class="reminder-item">
-        <div class="r-label">Timing</div>
-        <p>Keep answers to 2&ndash;3 minutes maximum in the HR round. Clarity over completeness. HR values a clear communicator over a comprehensive one.</p>
-      </div>
-      <div class="reminder-item">
-        <div class="r-label">Salary</div>
-        <p>Anchor at &euro;90,000&ndash;&euro;100,000. Give a range, state it confidently, and stay quiet after. Don't fill the silence &mdash; let them respond first.</p>
-      </div>
-      <div class="reminder-item">
-        <div class="r-label">The Gap</div>
-        <p>If asked about the 6-month gap: "I left in August and was deliberately selective about my next move &mdash; which is why this conversation is happening now."</p>
+      <div class="q-body">
+        <div class="answer-text"><p>Three concrete levers, ordered by feasibility:</p></div>
+        <div class="label-row">
+          <div class="lr-key">Lever 1<br/>(3&ndash;6 mo)</div>
+          <div class="lr-val"><strong>Drop-off prediction:</strong> Use session-level behavioural signals &mdash; time per questionnaire question, scroll depth, re-reads, photo upload hesitation &mdash; as features in a predictive model to flag high-risk drop-off profiles in real time. Trigger a targeted intervention: a trust signal, a progress indicator, a simplified copy variant for that segment only.</div>
+        </div>
+        <div class="label-row" style="margin-top:10px;">
+          <div class="lr-key">Lever 2<br/>(3&ndash;9 mo)</div>
+          <div class="lr-val"><strong>LLM questionnaire optimisation:</strong> Analyse which question phrasings correlate with hesitation or drop-off. Generate clearer, more confidence-building alternatives. A/B test new phrasings without changing the clinical data captured. "Do you experience comedones?" &rarr; "Do you have blackheads or whiteheads?" Same signal, less anxiety.</div>
+        </div>
+        <div class="label-row" style="margin-top:10px;">
+          <div class="lr-key">Lever 3<br/>(6&ndash;18 mo)</div>
+          <div class="lr-val"><strong>Personalised plan narrative:</strong> Use questionnaire outputs to dynamically generate a 'your treatment plan explained' summary in plain language, attributed to the assigned dermatologist. Bridges the gap between "signed up" and "I understand why this is right for me" &mdash; directly addressing the break-in phase churn driver.</div>
+        </div>
+        <div class="callout callout-red" style="margin-top:16px;">
+          <span class="callout-label">Proactively Flag the Risk</span>
+          Any AI-generated content in a health context needs a clinical review layer &mdash; not for every interaction, but for the logic and prompts driving personalisation. The risk isn't AI hallucination in the sci-fi sense &mdash; it's AI optimising for conversion on a signal that doesn't correlate with clinical fit. I'd build physician review of personalisation logic into product governance from day one, before scaling.
+        </div>
       </div>
     </div>
-    <div class="counter-q">
-      <div class="r-label">Save This For The Hiring Manager Round &mdash; Not HR</div>
-      <p>"I noticed FORMEL SKIN also went through a merger recently &mdash; I've lived through one myself and know the product implications. Can you share where you are in that integration journey and whether this role will involve navigating some of that complexity?"</p>
-    </div>
-    <div class="good-luck">You're well prepared. Go get it. &#127919;</div>
-  </div>
 
-</main>
+    <!-- VC Q8 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">8</div>
+        <div class="q-title">How would you use LLMs to improve the questionnaire and onboarding experience?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p><strong>Three specific applications grounded in the Voy model:</strong></p>
+          <p><strong>Adaptive questioning logic.</strong> Use an LLM to adjust follow-up questions based on earlier answers. If a user indicates severe acne, surface severity-specific questions rather than generic ones. This shortens the questionnaire for simple cases and deepens it for complex ones &mdash; without creating expensive parallel static branches to maintain.</p>
+          <p><strong>Anxiety-signal detection.</strong> Analyse where users pause, re-read, or drop off at a question level. Use LLM to rewrite high-drop-off phrasings to be less clinical and more conversational &mdash; without changing the clinical data collected. Same input, less fear, better completion.</p>
+          <p><strong>Post-onboarding personalised summary.</strong> Generate a 'your treatment plan explained' document personalised to each user's questionnaire answers, in plain language, attributed to their assigned dermatologist. Goal: close the confidence gap between "I signed up" and "I understand why this is right for me" &mdash; which is what drives break-in phase churn.</p>
+        </div>
+        <div class="callout callout-green">
+          <span class="callout-label">Voy Insight</span>
+          From their own product research, users were anxious during the break-in phase because irritation felt like the treatment was wrong for them &mdash; not a normal part of the process. An AI-generated, personalised onboarding narrative explaining the break-in phase in the context of their specific skin profile would directly address the Month-1 churn driver. Not as a mass email &mdash; as a personalised, doctor-attributed explanation that feels like individual care at scale.
+        </div>
+      </div>
+    </div>
+
+    <!-- VC Q9 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">9</div>
+        <div class="q-title">AI as a tool vs building AI-driven products &mdash; where do you sit?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <table class="fw-table">
+          <tr><th></th><th>AI As a Tool</th><th>AI-Driven Product</th></tr>
+          <tr><td><strong>What it means</strong></td><td>AI accelerates existing workflows &mdash; synthesis, generation, analysis</td><td>AI is the core value delivery mechanism &mdash; the product cannot exist without it</td></tr>
+          <tr><td><strong>PM's role</strong></td><td>Governs the outputs; AI is the accelerant</td><td>Governs the system; the model's behaviour IS the product</td></tr>
+          <tr><td><strong>Voy examples</strong></td><td>Clustering survey responses, generating hypotheses, personalising copy blocks</td><td>Adaptive treatment protocols that evolve based on patient outcomes at scale</td></tr>
+          <tr><td><strong>Where I sit now</strong></td><td>Practitioner using AI as a tool daily</td><td>Actively building product instinct for AI-driven features &mdash; adaptive personalisation, outcome-based subscriptions</td></tr>
+        </table>
+        <div class="callout callout-blue">
+          <span class="callout-label">Honest Framing for Roy</span>
+          "I am a practitioner who uses AI as a tool and is actively building the instinct for AI-driven product decisions. The highest near-term opportunity at Voy is in the tool layer &mdash; using AI to get 5x more learning throughput from the experimentation system we build. The AI-driven product layer &mdash; adaptive treatment protocols &mdash; that's a 12&ndash;24 month horizon. I want to be part of shaping it from the ground floor, not joining after someone else has designed the architecture."
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── CATEGORY: PRESSURE ────────────────────────────── -->
+    <div class="category-label"><span class="cat-vc">Category 3 &mdash; Hard Challenge &amp; Pressure Questions</span></div>
+
+    <!-- VC Q10 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">10</div>
+        <div class="q-title">If I told you your conversion rate is already best in class &mdash; what would you work on?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>Don't panic. This is a test of whether you think beyond the top-of-funnel number. The answer is always downstream.</p>
+          <p><strong>Activation quality first.</strong> Best-in-class acquisition CVR means nothing if 40% of converted customers cancel during the break-in phase. I'd move immediately to month-1 activation &mdash; the gap between "signed up" and "had a positive first 30-day outcome." At Outfittery I discovered 60% of drop-off was post-acquisition and nobody in product had tackled it. That's almost certainly true at Voy too.</p>
+          <p><strong>Plan upgrade and upsell surface.</strong> If acquisition is optimised, the next frontier is AOV trajectory &mdash; are customers on the 1-month plan being given a good reason and moment to upgrade after they've seen results? The doctor relationship is an enormous trust asset that could be leveraged for plan upgrade recommendations post-break-in-phase.</p>
+          <p><strong>Passive churn reduction.</strong> Payment failures, accidental lapses, forgetting-to-cancel rather than actively choosing to &mdash; these are different from intentional churn and require different product interventions. Dunning management, pre-renewal reminders, pause-vs-cancel options. Each is a retention lever that doesn't touch acquisition CVR at all.</p>
+          <p><strong>Traffic mix quality.</strong> Even a best-in-class overall CVR can hide a poorly-converting segment being averaged with a strong one. I'd segment by acquisition channel &mdash; if paid search converts at 8% and influencer converts at 2%, we're calling a blended number great while a broken channel hides underneath it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- VC Q11 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">11</div>
+        <div class="q-title">What's a strongly held CRO belief that most people would disagree with?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="callout callout-blue">
+          <span class="callout-label">Own This with Confidence &mdash; It's Your Most Differentiating Answer</span>
+          "Most CRO practitioners optimise for conversion rate. I think optimising for conversion rate is often the wrong goal. The metric I actually care about is quality-adjusted conversion &mdash; how many of the people we converted were right for the product. At Outfittery I learned that a customer who converts with low confidence cancels at three times the rate of a customer who converts with high confidence. So a change that lifts CVR by 5% but increases low-confidence conversions can destroy more LTV than it creates. I deliberately introduced a step that dropped CVR by 20% because I knew it would improve the quality of the customers who completed the funnel. Cancellations halved. This is especially true at Voy &mdash; you should never want to convert a customer who isn't a good clinical fit, even if the funnel mechanics could push them through. Quality of conversion is the metric that actually matters. Everything else is a proxy."
+        </div>
+      </div>
+    </div>
+
+    <!-- VC Q12 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">12</div>
+        <div class="q-title">What would you do in the first week if the team had no experimentation culture at all?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <table class="fw-table">
+          <tr><th>Week</th><th>Action</th><th>Why &mdash; Not What</th></tr>
+          <tr><td><strong>Week 1</strong></td><td>Listen and map. What's been tried? What failed? Why is the team gun-shy? Fear is usually specific &mdash; someone ran a test that got blamed for a metric dip, or leadership called a result before significance.</td><td>You can't design a culture intervention without understanding the resistance. Jumping to solutions is a PM anti-pattern.</td></tr>
+          <tr><td><strong>Week 2</strong></td><td>Ship one quick win with full visible process. Easiest high-confidence test &mdash; a copy change, a field made optional. Small stakes, high transparency, complete write-up shared.</td><td>Demonstrate the process works before asking for buy-in to a bigger programme. Trust is built on evidence.</td></tr>
+          <tr><td><strong>Week 3</strong></td><td>Publish the result publicly &mdash; even if it's neutral. Make the learning the win, not the metric movement.</td><td>Culture change happens through shared reference points. A neutral result written up well is a culture-building artefact.</td></tr>
+          <tr><td><strong>Week 4</strong></td><td>Propose lightweight governance &mdash; one-page test brief, shared tracking board, weekly result review. Minimum viable process.</td><td>Systems outlast individuals. The process needs to survive your holiday and eventually your departure from the role.</td></tr>
+        </table>
+        <div class="callout callout-red">
+          <span class="callout-label">Don't Say This</span>
+          You'd introduce a new experimentation platform or tooling overhaul in week one. Tools are what you introduce last, not first. The barrier to experimentation culture is almost never tooling &mdash; it's psychological safety and process clarity.
+        </div>
+      </div>
+    </div>
+
+    <!-- VC Q13 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">13</div>
+        <div class="q-title">What's something you don't know yet that you'd need to learn to be excellent in this role?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="callout callout-green">
+          <span class="callout-label">Be Genuine &mdash; Roy Will See Through Performance</span>
+          "Two things. First, the clinical trust layer. At Outfittery, trust was about style fit and returns policy. At Voy, trust involves dermatological credibility, the break-in phase experience, and the relationship between a patient and their assigned doctor. I understand the funnel mechanics deeply &mdash; but I need to develop deeper intuition for how clinical trust is built and broken in a subscription health context. I'd address this by embedding with the medical team in the first 30 days, sitting in on patient feedback, and studying cancellation reasons in depth &mdash; not just the volume, but the language customers use when they explain why they left.
+
+Second, the Voy platform ambition. The rebranding from Formel Skin to Voy &mdash; expanding from derma into weight loss, menopause, hair loss &mdash; means the product architecture needs to scale across verticals. I'm a strong derma-vertical PM from day one. But the cross-vertical platform thinking &mdash; how does a shared experimentation infrastructure, shared design system, shared data layer work across different health categories &mdash; that's something I'd want to get up to speed on quickly. Not because I'd own it alone, but because a PM who doesn't understand the platform direction is a liability in any roadmap conversation."
+        </div>
+      </div>
+    </div>
+
+    <!-- VC Q14 -->
+    <div class="q-card vc-card">
+      <div class="q-header" onclick="toggle(this)">
+        <div class="q-number vc-num">14</div>
+        <div class="q-title">If the data says one thing and your gut says another &mdash; what do you do?</div>
+        <div class="q-toggle">+</div>
+      </div>
+      <div class="q-body">
+        <div class="answer-text">
+          <p>Never give a binary answer. The interesting answer is in the diagnostic.</p>
+          <p><strong>Interrogate the gut first.</strong> Intuition is usually a pattern match. "This feels wrong" typically means "I've seen this situation fail before." Ask: is the pattern actually relevant here, or am I anchoring on the wrong prior experience?</p>
+          <p><strong>Interrogate the data second.</strong> Is the sample large enough? Was the test run for enough duration? Is there a segment or time-period effect hiding in the average?</p>
+          <p><strong>If both survive scrutiny &mdash; design a third test.</strong> Specifically designed to arbitrate the conflict. Don't flip a coin and don't default to data just because data sounds rigorous. Rigour is about asking the right questions, not deferring to numbers.</p>
+          <p><strong>My honest scorecard:</strong> The styling fee story is my proof that gut instinct can be wrong &mdash; the data looked right, I advocated hard for it, and it collapsed at scale. But in other cases &mdash; seasonal distortion, novelty effects, traffic mix shifts &mdash; intuition has saved us from calling a test too early. Neither source has a monopoly on truth. The skill is knowing which one deserves more weight in a given situation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- VC REMINDERS -->
+    <div class="reminders vc-rem">
+      <h2>Final Reminders &mdash; VC / Roy Round</h2>
+      <div class="reminder-grid">
+        <div class="reminder-item">
+          <div class="r-label">Speed of Thought</div>
+          <p>Pause. Restate the question briefly in your own words. Then structure. "So what you're really asking is..." signals you're thinking, not performing.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">Always Land One Level Up</div>
+          <p>Connect every tactic to LTV, CAC, payback period, or investor narrative. Roy sees across the full Manual platform &mdash; speak to that level.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">Voy Platform Angle</div>
+          <p>This is not just a derma role. Reference cross-vertical scalability wherever you can. Roy is building a platform, not a skin product.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">AI: Don't Overclaim</div>
+          <p>Be honest about where you sit. Show curiosity and a concrete learning plan. Roy respects that more than inflated claims of AI expertise.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">Under Challenge</div>
+          <p>Treat pushback as intellectual sparring. "That's a fair push &mdash; here's how I'd think about it." Never defensive, always direct.</p>
+        </div>
+        <div class="reminder-item">
+          <div class="r-label">Salary if It Comes Up</div>
+          <p>Re-anchor confidently: "Given the no-ESOP context, &euro;90&ndash;95K feels right as a base." Then stay quiet.</p>
+        </div>
+      </div>
+      <div class="counter-q">
+        <div class="r-label">Your Counter Question for Roy</div>
+        <p>"You're building a platform across multiple health verticals &mdash; derma, weight loss, menopause, hair loss. How does the product team currently think about shared infrastructure &mdash; a shared experimentation layer, shared data, shared design system &mdash; vs vertical-specific product decisions? That question shapes how I'd think about my roadmap from day one."</p>
+      </div>
+      <div class="good-luck">Think clearly. Hold your positions. Go get it. &#127919;</div>
+    </div>
+
+  </main>
+</div><!-- /panel-vc -->
 
 <script>
+  // ─── TAB SWITCHING ──────────────────────────────────────────
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+
+    const btnHr = document.getElementById('btn-hr');
+    const btnVc = document.getElementById('btn-vc');
+    btnHr.className = 'tab-btn' + (tab === 'hr' ? ' active-hr' : '');
+    btnVc.className = 'tab-btn' + (tab === 'vc' ? ' active-vc' : '');
+  }
+
+  // ─── ACCORDION TOGGLE ───────────────────────────────────────
   function toggle(header) {
     const card = header.parentElement;
     card.classList.toggle('open');
   }
+
+  // ─── FIX ARROW ENTITIES IN COACHING LI PSEUDO-ELEMENTS ─────
+  // The ::before content is set via CSS using the HTML entity &#x2192;
+  // which renders fine in all modern browsers. No JS needed.
 </script>
 
 </body>
